@@ -1,6 +1,8 @@
 import streamlit as st
 from api import chat_with_gemini
 from ui import render_ui
+from voice import recognize_speech, speak
+
 
 def main():
     st.set_page_config(page_title="Chatbot", layout="wide")
@@ -23,6 +25,18 @@ def main():
             response = chat_with_gemini(user_input)
             st.markdown(response)
             st.session_state['messages'].append({"role": "assistant", "content": response})
+    
+    if st.button("🎙️", help="use voice mode"):
+            voice_input = recognize_speech()
+            if voice_input:
+                st.session_state['messages'].append({"role": "user", "content": voice_input})
+                with st.chat_message("user"):
+                    st.markdown(voice_input)
+
+                with st.chat_message("assistant"):
+                    response = chat_with_gemini(voice_input)
+                    st.markdown(response)
+                    st.session_state['messages'].append({"role": "assistant", "content": response})
 
 if __name__ == "__main__":
     main()
