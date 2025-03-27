@@ -22,7 +22,7 @@ def main():
             st.markdown(user_input)
 
         with st.chat_message("assistant"):
-            response = chat_with_gemini(user_input)
+            response = chat_with_gemini(user_input, st.session_state["messages"])
             st.markdown(response)
             st.session_state['messages'].append({"role": "assistant", "content": response})
     
@@ -34,7 +34,7 @@ def main():
                     st.markdown(voice_input)
 
                 with st.chat_message("assistant"):
-                    response = chat_with_gemini(voice_input)
+                    response = chat_with_gemini(voice_input, st.session_state["messages"])
                     st.markdown(response)
                     st.session_state['messages'].append({"role": "assistant", "content": response})
 
