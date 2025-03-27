@@ -3,7 +3,6 @@ from api import chat_with_gemini
 from ui import render_ui
 from voice import recognize_speech, speak
 
-
 def main():
     st.set_page_config(page_title="Chatbot", layout="wide")
     render_ui()
